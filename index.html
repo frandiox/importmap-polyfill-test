@@ -4,8 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script async src="https://ga.jspm.io/npm:es-module-shims@2.0.9/dist/es-module-shims.js"></script>
-    <script async src="https://ga.jspm.io/npm:es-module-shims@2.0.9/dist/es-module-shims.js"></script>
+    <!-- <script type="esms-options">
+      {
+        "shimMode": false
+      }
+    </script> -->
+    <script>
+      // `shimMode` will be overwritten by the polyfill, `skip: false` is kept
+      window.esmsInitOptions = {shimMode: false, skip: false}
+    </script>
+    <script async fetchpriority="high" src="./polyfill-2.3.1.1.js"></script>
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js"></script>
+
+    <!-- <script>
+      const importMapShimScriptEl = document.createElement('script');
+      importMapShimScriptEl.src = 'https://ga.jspm.io/npm:es-module-shims@2.0.0/dist/es-module-shims.js'
+      importMapShimScriptEl.async = true;
+
+      document.currentScript.after(importMapShimScriptEl);
+    </script> -->
 
     <script type="module">
       console.log('Logging from a module script before the importmap tag to break older browsers');
@@ -14,7 +31,14 @@
     <script type="importmap">
       {
         "imports": {
-          "statically-imported-module": "./module-static.js",
+          "statically-imported-module": "./module-static.js"
+        }
+      }
+    </script>
+
+    <script type="importmap">
+      {
+        "imports": {
           "dynamically-imported-module": "./module-dynamic.js"
         }
       }
